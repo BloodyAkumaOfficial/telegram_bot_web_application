@@ -13,6 +13,7 @@ const App = () => {
 
     return (
         <div>
+            <Header/>
             <Button onClick={onToggleButton}>Toggle</Button>
         </div>
     );
