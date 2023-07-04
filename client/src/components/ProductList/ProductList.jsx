@@ -25,15 +25,16 @@ const ProductList = () => {
         const alreadyAdded = addedItems.find(item => item.id === product.id);
         let newItems = [];
 
-        if (alreadyAdded) {
-            newItems = addedItems.filter(item => item.id !== product.id)
+        if(alreadyAdded) {
+            newItems = addedItems.filter(item => item.id !== product.id);
         } else {
-            newItems = [...alreadyAdded, product];
+            newItems = [...addedItems, product];
         }
-        setAddedItems(newItems);
 
-        if (newItems.length === 0) {
-            tg.MainButton.hide()
+        setAddedItems(newItems)
+
+        if(newItems.length === 0) {
+            tg.MainButton.hide();
         } else {
             tg.MainButton.show();
             tg.MainButton.setParams({
