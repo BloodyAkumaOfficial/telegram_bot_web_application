@@ -33,7 +33,7 @@ const Form = () => {
     }, []);
 
     useEffect(() => {
-        if (!county || !address) {
+        if (!country || !address) {
             tg.MainButton.hide()
         } else {
             tg.MainButton.show()
