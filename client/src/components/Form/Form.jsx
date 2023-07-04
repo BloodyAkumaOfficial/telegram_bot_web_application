@@ -4,7 +4,7 @@ import useTelegram from "../../hooks/useTelegram";
 
 const Form = () => {
 
-    const [county, setCountry] = useState('');
+    const [country, setCountry] = useState('');
     const [address, setAddress] = useState('');
     const [subject, setSubject] = useState('physical');
 
@@ -12,12 +12,12 @@ const Form = () => {
 
     const onSendForm = useCallback(() => {
         const data = {
-            county,
+            country,
             address,
             subject
         }
         tg.sendData(JSON.stringify(data));
-    }, [county, address, subject])
+    }, [country, address, subject])
 
     useEffect(() => {
         tg.onEvent('mainButtonClicked', onSendForm);
@@ -38,7 +38,7 @@ const Form = () => {
         } else {
             tg.MainButton.show()
         }
-    }, [county, address])
+    }, [country, address])
 
     const onChangeCountry = (e) => {
         setCountry(e.target.value)
@@ -57,7 +57,7 @@ const Form = () => {
                 type={'text'}
                 placeholder={'Your county'}
                 className={'input'}
-                value={county}
+                value={country}
                 onChange={onChangeCountry}
             />
             <input
