@@ -27,6 +27,22 @@ const start = () => {
                 }
             });
         }
+
+        if (msg?.web_app_data?.data) {
+            try {
+                const data = JSON.parse(msg?.web_app_data?.data);
+
+                await bot.sendMessage(chatId, 'Thank you for choosing us!');
+                await bot.sendMessage(chatId, `Your county: ${data?.country}`);
+                await bot.sendMessage(chatId, `Your address: ${data?.address}`);
+
+                setTimeout(async () => {
+                    await bot.sendMessage(chatId, 'You can get all the information in this chat');
+                }, 2000)
+            } catch (e) {
+                console.log(e.message)
+            }
+        }
     });
     console.log('bot was started');
 }
