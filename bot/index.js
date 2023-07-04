@@ -1,7 +1,7 @@
 const TelegramBot = require('node-telegram-bot-api');
 
 const token = '6067840566:AAFlrdQ8GLhFMsME17Lrh3opN57VcO_V0CA';
-const webAppUrl = 'https://dev--telegram-bot-web-app.netlify.app/';
+const webAppUrl = 'https://dev--telegram-bot-web-app.netlify.app';
 
 const bot = new TelegramBot(token, {polling: true});
 
@@ -13,7 +13,7 @@ const start = () => {
             await bot.sendMessage(chatId, 'A button will appear below, please fill out the form', {
                 reply_markup: {
                     keyboard: [
-                        [{text: 'Fill the form', web_app: {url: webAppUrl}}]
+                        [{text: 'Fill the form', web_app: {url: webAppUrl + '/form'}}]
                     ]
                 }
             });
