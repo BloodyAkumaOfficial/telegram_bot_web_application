@@ -1,9 +1,37 @@
 const TelegramBot = require('node-telegram-bot-api');
+const express = require('express');
+const cors = require('cors');
 
 const token = '6067840566:AAFlrdQ8GLhFMsME17Lrh3opN57VcO_V0CA';
 const webAppUrl = 'https://dev--telegram-bot-web-app.netlify.app';
+const PORT = 8000;
 
 const bot = new TelegramBot(token, {polling: true});
+const app = express();
+
+app.use(express.json());
+app.use(cors());
+
+app.post('/web-data', async (req, res) => {
+    const {queryId, products, totalPrice} = req.body;
+    try {
+        await bot.answerWebAppQuery(queryId, {
+            type: 'article',
+            id: queryId,
+            title: 'Successful purchase',
+            input_message_content: {message_text: `You purchased goods worth $ ${totalPrice}`}
+        })
+        return res.status(200).json({});
+    } catch (e) {
+        await bot.answerWebAppQuery(queryId, {
+            type: 'article',
+            id: queryId,
+            title: 'Failed to complete the purchase',
+            input_message_content: {message_text: 'Failed to complete the purchase'}
+        })
+        return res.status(500).json({});
+    }
+})
 
 const start = () => {
     bot.on('message', async (msg) => {
@@ -44,6 +72,9 @@ const start = () => {
             }
         }
     });
+
+    app.listen(PORT, () => console.log('server was started'))
+
     console.log('bot was started');
 }
 
